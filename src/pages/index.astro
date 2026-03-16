@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import Catalog from '../components/Catalog.astro';
+import Gallery from '../components/Gallery.astro';
+import Quotes from '../components/Quotes.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts.ts';
+---
+
+<Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <div id="home"></div> 
+  <Navbar />
+  <main>
+    <Hero />
+    <Gallery />
+
+    <section id="catalog">
+      <Catalog />
+    </section>
+
+    <section id="quotes">
+      <Quotes />
+    </section>
+  </main>
+  <Footer />
+</Layout>
