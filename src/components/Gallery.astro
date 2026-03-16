@@ -1,0 +1,67 @@
+---
+const allImages = import.meta.glob('../assets/**/*.{jpg,jpeg,png,webp,avif}', { eager: true });
+
+function findImg(filename: string): string {
+  const entry = Object.entries(allImages).find(([path]) =>
+    path.split('/').pop()?.startsWith(filename)
+  );
+  return entry ? (entry[1].default?.src ?? entry[1].default ?? '') : '';
+}
+
+const galleryImages: string[] = Object.values(allImages).map(
+  (mod) => mod.default?.src ?? mod.default ?? ''
+).filter(Boolean);
+
+---
+
+<section class="gallery-strip">
+  <div class="gallery-strip__track">
+    {[...galleryImages, ...galleryImages].map((src, i) => (
+      <div class="gallery-strip__item">
+        <img src={src} alt={`Crochet ${i}`} loading="lazy" />
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+.gallery-strip {
+  overflow: hidden;
+  padding: 32px 0;
+  background: var(--cream);
+  position: relative;
+}
+.gallery-strip::before,
+.gallery-strip::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+.gallery-strip::before { left: 0; background: linear-gradient(to right, var(--cream), transparent); }
+.gallery-strip::after  { right: 0; background: linear-gradient(to left, var(--cream), transparent); }
+.gallery-strip__track {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+  animation: scrollGallery 30s linear infinite;
+}
+.gallery-strip__track:hover { animation-play-state: paused; }
+@keyframes scrollGallery {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.gallery-strip__item {
+  width: 180px; height: 180px;
+  border-radius: 16px;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(60,30,20,0.1);
+  transition: transform 0.3s;
+}
+.gallery-strip__item:hover { transform: scale(1.05); }
+.gallery-strip__item img { width: 100%; height: 100%; object-fit: cover; }
+
+</style>
