@@ -1,0 +1,121 @@
+---
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts.ts';
+import LOGO from '../../public/logo.png';
+import { Image } from 'astro:assets';
+
+---
+<footer class="footer">
+  <div class="footer__container">
+    <div class="footer__brand">
+      <div class="footer__logo">
+        <Image src={ LOGO } alt="Logo" width="40" height="40" class="footer__logo-img" />
+        <div>
+          <span class="footer__logo-name">{ SITE_TITLE }</span>
+        </div>
+      </div>
+      <p class="footer__tagline">
+        { SITE_DESCRIPTION } 🧶
+      </p>
+    </div>
+    <div class="footer__links">
+      <h4 class="footer__heading">Tienda</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#catalog">Catálogo</a></li>
+        <li><a href="#quotes">Cotizaciones</a></li>
+      </ul>
+    </div>
+    <div class="footer__links">
+      <h4 class="footer__heading">Redes Sociales</h4>
+      <ul>
+        <li><a href="https://www.instagram.com/miaumiau2crochet" target="_blank">Instagram</a></li>
+        <!-- <li><a href="https://wa.link/wovyf9" target="_blank">WhatsApp</a></li> -->
+        <!-- <li><a href="https://www.tiktok.com/@miaumiau2crochet" target="_blank">TikTok</a></li> -->
+        <li><a href="https://www.facebook.com/share/1BxprdgZ25/?mibextid=wwXIfr" target="_blank">Facebook</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+  <p>Copyright © 2026 { SITE_TITLE }. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<style>
+.footer {
+  background: var(--text-dark);
+  color: rgba(255,255,255,0.7);
+  padding: 60px 24px 0;
+}
+.footer__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.footer__brand {}
+.footer__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.footer__logo-name {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.2;
+}
+.footer__logo-sub {
+  display: block;
+  font-family: 'Dancing Script', cursive;
+  font-size: 13px;
+  color: var(--rose);
+  line-height: 1.2;
+}
+.footer__tagline {
+  font-size: 13px;
+  line-height: 1.6;
+  max-width: 260px;
+}
+.footer__heading {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 16px;
+}
+.footer__links ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.footer__links a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  transition: color 0.2s;
+}
+.footer__links a:hover { color: var(--rose); }
+.footer__bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 0;
+  font-size: 12px;
+  text-align: center;
+  color: rgba(255,255,255,0.35);
+}
+
+@media (max-width: 768px) {
+  .footer__container { grid-template-columns: 1fr 1fr; }
+  .footer__brand { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .footer__container { grid-template-columns: 1fr; }
+}
+</style>
