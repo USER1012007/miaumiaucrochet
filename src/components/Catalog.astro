@@ -1,0 +1,711 @@
+---
+import { Image } from 'astro:assets';
+
+const allImages = import.meta.glob('../assets/**/*.{jpg,jpeg,png,webp,avif}', { eager: true });
+
+function findImg(filename: string): string {
+  const entry = Object.entries(allImages).find(([path]) =>
+    path.split('/').pop()?.startsWith(filename)
+  );
+  return entry ? (entry[1].default?.src ?? entry[1].default ?? '') : '';
+}
+
+const catalogs = [
+  {
+    id: 1,
+    name: "Snoopy Collection",
+    image: findImg("snoopy1"),
+    images: [
+      findImg("snoopy1"),
+      findImg("snoopy2"),
+      findImg("snoopy3"),
+      findImg("snoopy4"),
+      findImg("snoopy5"),
+    ],
+    precio: "60",
+    medidas: "6 cm",
+    description: "",
+    badge: "Nuevo",
+  },
+  {
+    id: 2,
+    name: "Ariel Camacho",
+    image: findImg("ARIEL_CAMACHO"),
+    images: [
+      findImg("ARIEL_CAMACHO"),
+      findImg("ARIEL_CAMACHO"),
+    ],
+    precio: "450",
+    medidas: "15 cm",
+    description: "",
+    badge: "",
+  },
+  {
+    id: 3,
+    name: "Maceta Girasol con Abeja",
+    image: findImg("MACETA_GIRASOL_CON_ABEJA"),
+    images: [
+      findImg("MACETA_GIRASOL_CON_ABEJA"),
+    ],
+    precio: "130",
+    medidas: "13 cm",
+    description: "",
+    badge: "Nuevo",
+  },
+  {
+    id: 4,
+    name: "Monito Colgante",
+    image: findImg("MONITO_COLGANTE"),
+    images: [
+      findImg("MONITO_COLGANTE"),
+      findImg("MONITO_COLGANTE1"),
+    ],
+    precio: "100",
+    medidas: "9 cm",
+    description: "",
+    badge: "",
+  },
+  {
+    id: 5,
+    name: "Pollitos con Sombrero",
+    image: findImg("POLLITOS_CON_SOMBRERO1"),
+    images: [
+      findImg("POLLITOS_CON_SOMBRERO1"),
+      findImg("POLLITOS_CON_SOMBRERO2"),
+    ],
+    precio: "60",
+    medidas: "5 cm",
+    description: "El precio puede variar, si se le agregan más accesorios o cambio en el tamaño",
+    badge: "Oferta",
+  },
+  {
+    id: 6,
+    name: "Personalizados",
+    image: findImg("PERSONALIZADOS1"),
+    images: [
+      findImg("PERSONALIZADOS1"),
+      findImg("PERSONALIZADOS2"),
+    ],
+    precio: "240",
+    medidas: "15 cm",
+    description: "",
+    badge: "",
+  },
+  {
+    id: 7,
+    name: "Cactus con Maceta",
+    image: findImg("cactus"),
+    images: [
+      findImg("cactus"),
+    ],
+    precio: "200",
+    medidas: "9-11 cm",
+    description: "",
+    badge: "",
+  },
+  {
+    id: 8,
+    name: "Perrito",
+    image: findImg("perrito"),
+    images: [
+      findImg("perrito"),
+      findImg("perrito1"),
+    ],
+    precio: "400",
+    medidas: "15 cm",
+    description: "",
+    badge: "",
+  },
+  {
+    id: 9,
+    name: "Caballo",
+    image: findImg("caballo"),
+    images: [
+      findImg("caballo"),
+      findImg("caballo1"),
+      findImg("caballo2"),
+    ],
+    precio: "400",
+    medidas: "20 cm",
+    description: "",
+    badge: "",
+  },
+  {
+    id: 10,
+    name: "Doja Cat",
+    image: findImg("doja"),
+    images: [
+      findImg("doja"),
+      findImg("doja1"),
+      findImg("doja2"),
+    ],
+    precio: "450",
+    medidas: "15 cm",
+    description: "",
+    badge: "",
+  },
+  {
+    id: 11,
+    name: "Perry el Ornitorrinco",
+    image: findImg("perry"),
+    images: [
+      findImg("perry"),
+      findImg("perry1"),
+      findImg("perry2"),
+    ],
+    precio: "80",
+    medidas: "9 cm",
+    description: "El precio es por unidad",
+    badge: "",
+  },
+  {
+    id: 12,
+    name: "Chiva Chivista",
+    image: findImg("chivaChivista2"),
+    images: [
+       findImg("chivaChivista"),
+       findImg("chivaChivista1"),
+       findImg("chivaChivista2"),
+    ],
+    precio: "200",
+    medidas: "12 cm",
+    description: "",
+    badge: "",
+  },
+  {
+    id: 13,
+    name: "Natanel Cano",
+    image: findImg("natanael"),
+    images: [
+      findImg("natanael"),
+    ],
+    precio: "450",
+    medidas: "15 cm",
+    description: "",
+    badge: "",
+  },
+];
+
+const catalogJSON = JSON.stringify(catalogs);
+---
+
+<section class="catalogs" id="catalogs">
+  <div class="catalogs__container">
+    <div class="catalogs__header">
+      <h2 class="catalogs__title">Catálogo</h2>
+      <div class="catalogs__divider">
+        <span>✦</span>
+        <div class="catalogs__divider-line"></div>
+        <span>✦</span>
+      </div>
+    </div>
+
+    <div class="catalogs__grid">
+      {catalogs.map(cat => (
+        <button
+          class="catalog-card"
+          data-id={cat.id}
+          aria-label={`Ver detalles de ${cat.name}`}
+        >
+          <div class="catalog-card__img-wrap">
+            {cat.badge && <span class="catalog-card__badge">{cat.badge}</span>}
+            <img class="catalog-card__image" src={cat.image} alt={cat.name} loading="lazy" />
+            <div class="catalog-card__hover-hint">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
+              </svg>
+              Ver más
+            </div>
+          </div>
+          <div class="catalog-card__info">
+            <h3 class="catalog-card__name">{cat.name}</h3>
+            <span class="catalog-card__price">${cat.precio} MXN</span>
+            <span class="catalog-card__medidas">{cat.medidas}</span>
+          </div>
+        </button>
+      ))}
+    </div>
+  </div>
+</section>
+
+<div class="modal-overlay hidden" id="catalogModal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <button class="modal__close" id="modalClose" aria-label="Cerrar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    <div class="modal__body">
+      <!-- Galería -->
+      <div class="modal__gallery">
+        <div class="modal__main-img-wrap">
+          <img id="modalMainImg" src="" alt="" />
+          <button class="modal__nav modal__nav--prev" id="modalPrev" aria-label="Anterior">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+          </button>
+          <button class="modal__nav modal__nav--next" id="modalNext" aria-label="Siguiente">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
+          <div class="modal__img-counter">
+            <span id="modalCurrent">1</span> / <span id="modalTotal">1</span>
+          </div>
+        </div>
+        <div class="modal__thumbnails" id="modalThumbnails"></div>
+      </div>
+
+      <!-- Info -->
+      <div class="modal__info">
+        <span class="modal__badge hidden" id="modalBadge"></span>
+        <h2 class="modal__title" id="modalTitle"></h2>
+        <div class="modal__price" id="modalPrice"></div>
+        <div class="modal__meta">
+          <div class="modal__meta-item">
+            <span class="modal__meta-label">Medidas</span>
+            <span class="modal__meta-value" id="modalMedidas"></span>
+          </div>
+        </div>
+        <p class="modal__desc" id="modalDesc"></p>
+        <div class="modal__actions">
+          <button class="modal__cta-primary"><a href="https://www.instagram.com/miaumiau2crochet" target="_blank">Lo quiero</a></button>
+        </div>
+        <div class="modal__share">
+          <span>Compartir:</span>
+          <a href="https://www.instagram.com/miaumiau2crochet" target="_blank" class="modal__share-link">Instagram</a>
+          <!-- <a href="https://wa.link/wovyf9" target="_blank" class="modal__share-link">WhatsApp</a> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* ── Catálogo ─────────────────────────── */
+.catalogs {
+  background: var(--warm-white);
+  padding: 72px 24px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.catalogs__container { max-width: 1200px; margin: 0 auto; }
+.catalogs__header { text-align: center; margin-bottom: 48px; }
+.catalogs__title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 500;
+  color: var(--text-dark);
+  margin-bottom: 16px;
+}
+.catalogs__divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--brown-light);
+  font-size: 10px;
+}
+.catalogs__divider-line { width: 80px; height: 1px; background: var(--border); }
+.catalogs__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* ── Card ─────────────────────────────── */
+.catalog-card {
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  font-family: 'Lato', sans-serif;
+}
+.catalog-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(180,120,100,0.18);
+  border-color: var(--brown-light);
+}
+.catalog-card__img-wrap {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+.catalog-card__image {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.catalog-card:hover .catalog-card__image { transform: scale(1.06); }
+.catalog-card__badge {
+  position: absolute;
+  top: 10px; left: 10px;
+  background: var(--rose);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 3px 10px;
+  border-radius: 20px;
+  z-index: 2;
+}
+.catalog-card__hover-hint {
+  position: absolute;
+  inset: 0;
+  background: rgba(60,30,20,0.38);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.catalog-card:hover .catalog-card__hover-hint { opacity: 1; }
+.catalog-card__info {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.catalog-card__name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+.catalog-card__price { font-size: 1rem; font-weight: 700; color: var(--rose); }
+.catalog-card__medidas { font-size: 11.5px; color: var(--text-light); }
+.catalog-card__desc {
+  font-size: 12px;
+  color: var(--text-mid);
+  line-height: 1.55;
+  margin-top: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Modal overlay ────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(40,20,15,0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.25s ease;
+}
+.modal-overlay.hidden { display: none; }
+.modal {
+  background: var(--warm-white);
+  border-radius: 24px;
+  max-width: 860px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 32px 80px rgba(40,20,15,0.3);
+  border: 1px solid var(--border);
+  position: relative;
+  animation: fadeInUp 0.35s ease;
+}
+.modal::-webkit-scrollbar { width: 5px; }
+.modal::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+.modal__close {
+  position: sticky;
+  top: 14px;
+  float: right;
+  margin: 14px 14px 0 0;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--text-mid);
+  transition: all 0.2s;
+  z-index: 10;
+}
+.modal__close:hover { background: var(--rose); color: #fff; border-color: var(--rose); }
+.modal__body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  clear: both;
+}
+
+/* ── Modal gallery ────────────────────── */
+.modal__gallery {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.modal__main-img-wrap {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--blush);
+}
+.modal__main-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: opacity 0.2s;
+}
+.modal__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.9);
+  border: none;
+  border-radius: 50%;
+  width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--text-dark);
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+.modal__nav:hover { background: var(--rose); color: #fff; }
+.modal__nav--prev { left: 10px; }
+.modal__nav--next { right: 10px; }
+.modal__img-counter {
+  position: absolute;
+  bottom: 10px; right: 12px;
+  background: rgba(40,20,15,0.55);
+  color: #fff;
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+.modal__thumbnails {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+}
+.modal__thumbnails::-webkit-scrollbar { height: 4px; }
+.modal__thumbnails::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.modal__thumb {
+  width: 64px; height: 64px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s;
+  background: none;
+  padding: 0;
+}
+.modal__thumb:hover { transform: scale(1.06); }
+.modal__thumb.active { border-color: var(--rose); }
+.modal__thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ── Modal info ───────────────────────── */
+.modal__info {
+  padding: 32px 28px 28px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.modal__badge {
+  display: inline-block;
+  background: var(--rose);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 4px 12px;
+  border-radius: 20px;
+  width: fit-content;
+}
+.modal__badge.hidden { display: none; }
+.modal__title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+  font-weight: 600;
+  color: var(--text-dark);
+  line-height: 1.25;
+}
+.modal__price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--rose);
+  font-family: 'Playfair Display', serif;
+}
+.modal__meta {
+  background: var(--cream);
+  border-radius: 12px;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+}
+.modal__meta-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+.modal__meta-label { color: var(--text-light); }
+.modal__meta-value { font-weight: 700; color: var(--text-dark); }
+.modal__desc {
+  font-size: 14px;
+  color: var(--text-mid);
+  line-height: 1.75;
+  flex: 1;
+}
+.modal__actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.modal__cta-primary {
+  flex: 1;
+  background: var(--rose);
+  color: #fff;
+  border: none;
+  padding: 13px 20px;
+  border-radius: 30px;
+  font-family: 'Lato', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.modal__cta-primary:hover { background: var(--rose-dark); transform: translateY(-1px); }
+.modal__cta-secondary {
+  background: #fff;
+  color: var(--rose);
+  border: 1.5px solid var(--rose);
+  padding: 13px 16px;
+  border-radius: 30px;
+  font-family: 'Lato', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.modal__cta-secondary:hover { background: var(--rose); color: #fff; }
+.modal__share {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--text-light);
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  flex-wrap: wrap;
+}
+.modal__share-link { color: var(--rose); font-weight: 700; transition: opacity 0.2s; }
+.modal__share-link:hover { opacity: 0.7; }
+
+/* ── Responsive ───────────────────────── */
+@media (max-width: 640px) {
+  .modal__body { grid-template-columns: 1fr; }
+  .modal__info { padding: 0 20px 24px; }
+  .modal__gallery { padding: 0 20px 0; }
+}
+</style>
+
+<script define:vars={{ catalogJSON }}>
+  const catalogData = JSON.parse(catalogJSON);
+
+  let currentImages = [];
+  let currentIndex  = 0;
+
+  const overlay   = document.getElementById('catalogModal');
+  const mainImg   = document.getElementById('modalMainImg');
+  const thumbsEl  = document.getElementById('modalThumbnails');
+  const prevBtn   = document.getElementById('modalPrev');
+  const nextBtn   = document.getElementById('modalNext');
+  const counterEl = document.getElementById('modalCurrent');
+  const totalEl   = document.getElementById('modalTotal');
+  const closeBtn  = document.getElementById('modalClose');
+
+  function setImage(idx) {
+    currentIndex = (idx + currentImages.length) % currentImages.length;
+    mainImg.style.opacity = '0';
+    setTimeout(() => {
+      mainImg.src = currentImages[currentIndex];
+      mainImg.style.opacity = '1';
+    }, 120);
+    counterEl.textContent = currentIndex + 1;
+    document.querySelectorAll('.modal__thumb').forEach((t, i) => {
+      t.classList.toggle('active', i === currentIndex);
+      if (i === currentIndex)
+        t.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    });
+  }
+
+  function openModal(id) {
+    const item = catalogData.find(d => d.id === id);
+    if (!item) return;
+
+    currentImages = item.images;
+    currentIndex  = 0;
+
+    document.getElementById('modalTitle').textContent   = item.name;
+    document.getElementById('modalPrice').textContent   = `$${item.precio} MXN`;
+    document.getElementById('modalMedidas').textContent = item.medidas;
+    document.getElementById('modalDesc').textContent    = item.description;
+
+    const badge = document.getElementById('modalBadge');
+    if (item.badge) { badge.textContent = item.badge; badge.classList.remove('hidden'); }
+    else            { badge.classList.add('hidden'); }
+
+    totalEl.textContent = currentImages.length;
+
+    thumbsEl.innerHTML = '';
+    currentImages.forEach((src, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'modal__thumb' + (i === 0 ? ' active' : '');
+      btn.setAttribute('aria-label', `Imagen ${i + 1}`);
+      btn.innerHTML = `<Image src="${src}" alt="Imagen ${i + 1}" loading="lazy" />`;
+      btn.addEventListener('click', () => setImage(i));
+      thumbsEl.appendChild(btn);
+    });
+
+    mainImg.src = currentImages[0];
+    mainImg.style.opacity = '1';
+    counterEl.textContent = 1;
+
+    overlay.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    overlay.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.catalog-card').forEach(card => {
+    card.addEventListener('click', () => openModal(Number(card.dataset.id)));
+  });
+
+  prevBtn?.addEventListener('click', () => setImage(currentIndex - 1));
+  nextBtn?.addEventListener('click', () => setImage(currentIndex + 1));
+  closeBtn?.addEventListener('click', closeModal);
+  overlay?.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+
+  document.addEventListener('keydown', e => {
+    if (overlay?.classList.contains('hidden')) return;
+    if (e.key === 'Escape')     closeModal();
+    if (e.key === 'ArrowLeft')  setImage(currentIndex - 1);
+    if (e.key === 'ArrowRight') setImage(currentIndex + 1);
+  });
+</script>
