@@ -1,0 +1,181 @@
+---
+import { SITE_TITLE } from '../consts.ts';
+
+const socials = [
+  // {
+  //   name: "WhatsApp",
+  //   href: "https://wa.link/wovyf9",
+  //   icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2C6.477 2 2 6.477 2 12c0 1.99.586 3.842 1.599 5.385L2 22l4.757-1.567A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 11.999 2zm0 18a7.96 7.96 0 01-4.127-1.146L4 20l1.167-3.795A7.96 7.96 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z"/></svg>`,
+  //   color: "#25D366"
+  // },
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/miaumiau2crochet",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>`,
+    color: "#E1306C"
+  },
+  // {
+  //   name: "TikTok",
+  //   href: "https://www.tiktok.com/@Miau Miau Crochet",
+  //   icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.73a8.2 8.2 0 004.77 1.51V6.79a4.85 4.85 0 01-1-.1z"/></svg>`,
+  //   color: "#000000"
+  // },
+  // {
+  //   name: "Facebook",
+  //   href: "https://www.facebook.com/NJERAcrochet",
+  //   icon: `<svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>`,
+  //   color: "#1877F2"
+  // }
+];
+---
+
+<section class="quotes">
+  <div class="quotes__container">
+    <div class="quotes__inner">
+      <div class="quotes__text">
+        <span class="quotes__eyebrow">Cotizaciones</span>
+        <h2 class="quotes__title">¿Quieres un peluche<br/><em>personalizado?</em></h2>
+        <p class="quotes__body">
+          Comunícate mediante DM en Instagram o WhatsApp.<br/> 
+          Con gusto te atiendo 🧶
+        </p>
+        <div class="quotes__socials">
+          {socials.map(s => (
+            <a href={s.href} target="_blank" rel="noopener" class="quotes__social" style={`--sc: ${s.color}`}>
+              <span set:html={s.icon}></span>
+              {s.name}
+            </a>
+          ))}
+        </div>
+      </div>
+      <div class="quotes__deco">
+        <div class="quotes__deco-circle quotes__deco-circle--1"></div>
+        <div class="quotes__deco-circle quotes__deco-circle--2"></div>
+        <div class="quotes__deco-yarn">
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="80" stroke="#d4836a" stroke-width="2" stroke-dasharray="8 6" opacity="0.4"/>
+            <circle cx="100" cy="100" r="55" stroke="#d4836a" stroke-width="2" stroke-dasharray="5 8" opacity="0.3"/>
+            <circle cx="100" cy="100" r="30" stroke="#b5634c" stroke-width="2" opacity="0.5"/>
+            <circle cx="100" cy="100" r="10" fill="#d4836a" opacity="0.6"/>
+            <path d="M100 20 Q140 60 100 100 Q60 140 100 180" stroke="#b5634c" stroke-width="1.5" fill="none" opacity="0.4"/>
+            <path d="M20 100 Q60 60 100 100 Q140 140 180 100" stroke="#c4a898" stroke-width="1.5" fill="none" opacity="0.4"/>
+          </svg>
+        </div>
+        <div class="quotes__deco-text">{ SITE_TITLE }</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.quotes {
+  padding: 80px 24px;
+  background: var(--warm-white);
+  border-top: 1px solid var(--border);
+}
+.quotes__container { max-width: 1200px; margin: 0 auto; }
+.quotes__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.quotes__eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--rose);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.quotes__title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 500;
+  color: var(--text-dark);
+  line-height: 1.25;
+  margin-bottom: 18px;
+}
+.quotes__title em {
+  font-style: italic;
+  color: var(--rose);
+}
+.quotes__body {
+  font-size: 15px;
+  color: var(--text-mid);
+  line-height: 1.7;
+  margin-bottom: 32px;
+  max-width: 400px;
+}
+.quotes__socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.quotes__social {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 30px;
+  border: 1.5px solid var(--border);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dark);
+  background: #fff;
+  transition: all 0.25s;
+}
+.quotes__social:hover {
+  border-color: var(--sc);
+  color: var(--sc);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+.quotes__social svg { flex-shrink: 0; }
+
+/* Deco side */
+.quotes__deco {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+.quotes__deco-circle {
+  position: absolute;
+  border-radius: 50%;
+}
+.quotes__deco-circle--1 {
+  width: 220px; height: 220px;
+  background: radial-gradient(circle at 30% 40%, #f5e6d8, #edddd0);
+  top: 10px; left: 10%;
+  animation: float 5s ease-in-out infinite;
+}
+.quotes__deco-circle--2 {
+  width: 120px; height: 120px;
+  background: radial-gradient(circle, #f0d9c8, #e8ccbb);
+  bottom: 20px; right: 5%;
+  animation: float 7s ease-in-out infinite reverse;
+}
+.quotes__deco-yarn {
+  position: relative;
+  z-index: 2;
+  width: 180px;
+  height: 180px;
+  animation: float 6s ease-in-out infinite;
+}
+.quotes__deco-text {
+  position: absolute;
+  bottom: 30px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 22px;
+  color: var(--rose);
+  z-index: 3;
+}
+
+@media (max-width: 768px) {
+  .quotes__inner { grid-template-columns: 1fr; gap: 40px; }
+  .quotes__deco { display: none; }
+}
+</style>
