@@ -271,7 +271,9 @@ const catalogJSON = JSON.stringify(catalogs);
         </div>
         <p class="modal__desc" id="modalDesc"></p>
         <div class="modal__actions">
-          <button class="modal__cta-primary"><a href="https://www.instagram.com/miaumiau2crochet" target="_blank">Lo quiero</a></button>
+          <a href="https://www.instagram.com/miaumiau2crochet" target="_blank" class="modal__cta-primary">
+            Lo quiero
+          </a>
         </div>
         <div class="modal__share">
           <span>Compartir:</span>
@@ -585,6 +587,11 @@ const catalogJSON = JSON.stringify(catalogs);
   cursor: pointer;
   transition: all 0.2s;
   white-space: nowrap;
+  text-align: center;        /* ← necesario para <a> */
+  text-decoration: none;     /* ← quita el subrayado */
+  display: inline-flex;      /* ← alinea bien el texto */
+  align-items: center;
+  justify-content: center;
 }
 .modal__cta-primary:hover { background: var(--rose-dark); transform: translateY(-1px); }
 .modal__cta-secondary {
